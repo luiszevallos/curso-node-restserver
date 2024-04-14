@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { response, request } = require("express");
 //
-const User = require("../models/user");
+const { User } = require("../models");
 
 const validJWT = async (req = request, res = response, next) => {
   try {
@@ -19,7 +19,7 @@ const validJWT = async (req = request, res = response, next) => {
 
     if (!user || !user.status) {
       return res.status(401).json({
-        message: "Token no válido",
+        message: "Token no válido - 1",
       });
     }
 
@@ -29,7 +29,7 @@ const validJWT = async (req = request, res = response, next) => {
   } catch (error) {
     console.log("🚀 ~ validJWT ~ error:", error);
     return res.status(401).json({
-      message: "Token no válido",
+      message: "Token no válido - 2",
     });
   }
 };

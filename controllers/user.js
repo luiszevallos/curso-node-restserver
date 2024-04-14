@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 //
-const User = require("../models/user");
+const { User } = require("../models");
 
 const getUsers = async (req, res) => {
   const { limit = 5, page = 0 } = req.query;
@@ -8,9 +8,6 @@ const getUsers = async (req, res) => {
   const option = {
     status: true,
   };
-
-  // const users = await User.find(option).skip(Number(page)).limit(Number(limit));
-  // const count = await User.countDocuments(option);
 
   const [count, rows] = await Promise.all([
     await User.countDocuments(option),
@@ -44,7 +41,7 @@ const postUsers = async (req, res) => {
 
   await user.save();
 
-  res.json({
+  res.status(201).json({
     message: `Usuario ${name} ${surname} creado exitoso!`,
     data: user,
   });
